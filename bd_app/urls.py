@@ -5,4 +5,5 @@ from . import views
 app_name = "bd_app"
 urlpatterns = [
                url(r'^$', views.index, name="index"),
+               url(r'^help$',views.help, name="help"),
 ]

@@ -51,3 +51,6 @@ def index(request):
 	return render(request, 'bd_app/index.html', 
 			      {'pt_form':pt_form,'clin_form':clin_form,'exp_form':exp_form,
 			      'chart_form':chart_form})
+
+def help(request):
+	return render(request, 'bd_app/help.html',)

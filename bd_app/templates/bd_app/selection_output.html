@@ -1,27 +1,40 @@
 {% extends "bd_app/base.html" %}
+{% load bootstrap3 %}
 {% load staticfiles %}
+
+{% block header %}
+
+  <div class="jumbotron">
+    <h2>Chart Features:</h2></br>
+    <ul>
+   	  <li>Hover cursor over chart to view chart values</li>
+      <li>Hover cursor over chart to reveal chart options in top right window pane</li>
+      <li>Click and drag cursor over chart to zoom on desired region</li>
+    </ul>
+  </div>
+
+{% endblock header %}
 
 {% block content %}
 
-<!--
-<p>Cohort Patient Key(s): {{ ppt_form.pt_key }}</p>
-<p>Clinical Parameters: pt_key{{ pclin_form.id_list }}</p>
-<p>Expression Parameters: {{ pexp_form.exp_data }}</p>
-<p>Chart Type: {{ pexp_form.plot }}</p>
--->
+<div id="reset">
+  <form action="{% url 'bd_app:index' %}">
+    {% csrf_token %}
 
-<p>Number of patients:</p>
-<!-- {{ exp_data }} -->
+    {% buttons %}
 
+     <button type="submit" class="btn btn-primary">reset</button>
+
+    {% endbuttons %}
+
+  </form>
+</div>
+
+<div id="test"></div>
 <div id="output_test" style="width: 50%; height: 500px;">
   <script>
 	  scatter("{{ exp_data|escapejs }}")
   </script>
 </div>
 
-<p>
-  <form action="{% url 'bd_app:index' %}">
-    <button name="button">return</button>
-  </form>
-</p>
 {% endblock content %}

@@ -1,0 +1,34 @@
+{% extends "bd_app/base.html" %}
+{% load bootstrap3 %}
+
+{% block header %}
+
+  <div class="jumbotron">
+    <h2>Query Instructions:</h2></br>
+
+    <h4>Patient Parameters:</h4>
+      <ul>
+        <h5>To view results of single cohort:</h5>
+          <ul>
+            <li>select cohort</li>
+            <li>select gender</li>
+            <li>select Compare Field: NA</li>
+          </ul>
+
+        <h5>To view cohort comparison results:</h5>
+          <ul>
+            Compare cancer cohorts:
+            <li></li>
+            <li></li>
+          </ul>
+
+        To make multiple selections per field use CTRL + select or SHIFT + select
+      </ul>
+
+    <p><h4>Clinical Data Parameters</h4></p>
+      <ul>
+
+      </ul>
+  </div>
+
+{% endblock header %}

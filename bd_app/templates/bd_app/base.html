@@ -1,32 +1,75 @@
-<head>
+{% load bootstrap3 %}
 
-  {% load staticfiles %}
+<!DOCTYPE html>
+<html lang="em">
+  <head>
 
-  <meta charset="utf-8"/>
+    {% load staticfiles %}
 
-  <!-- load plotly -->
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <!-- load static files -->
-  <script type="text/javascript" src="{% static 'bd_app/js/jsUtil.js' %}"></script>
+    <meta charset="utf-8"/>
+    <meta http-equv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-</head>
+    <title>pyQlik</title>
 
-<body>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
 
-<h2>Cohort Analysis App</h2>
+    <!-- load plotly -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- load static files -->
+    <script type="text/javascript" src="{% static 'bd_app/js/jsUtil.js' %}"></script>
 
-<p><a href="{% url 'bd_app:index' %}">Home</a></p>
+  </head>
 
-<div>
-  <p>
-    <h4>Instructions:</h4>
-    <p>
-      Select cancer cohort and other clinical and molecular parameters<br>
-      to analyze differences in the selected cohort<br>
-    </p>
-  </p>
-</div>
+  <body>
 
-{% block content %}{% endblock content %}
+    <!-- static navbar -->
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container">
 
-</body>
+        <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar"></button>
+        </div>
+      
+        <a class="navbar-brand" href="{% url 'bd_app:index' %}">Query</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="navbar">
+        <ul class="nav navbar-nav">
+          <li><a href="{% url 'bd_app:help' %}">Help</a></li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          <li><a>v0.1 beta</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="page-header">
+        {% block header %}{% endblock header %}
+      </div>
+      <div>
+        {% block content %}{% endblock content %}
+      </div>
+    </div>
+
+<!--
+    <h2>Cohort Analysis App</h2>
+
+    <p><a href="{% url 'bd_app:index' %}">Home</a></p>
+
+    <div>
+      <p>
+        <h4>Instructions:</h4>
+        <p>
+          Select cancer cohort and other clinical and molecular parameters<br>
+          to analyze differences in the selected cohort<br>
+        </p>
+      </p>
+    </div>
+
+-->
+  </body>
+</html>

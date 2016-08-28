@@ -1,31 +1,74 @@
 {% extends "bd_app/base.html" %}
+{% load bootstrap3 %}
+
+
+{% block header %}
+
+  <div class="jumbotron">
+    <h2>Instructions:</h2></br>
+    Required Fields:
+    <ul>
+      <li>Cohort</li>
+      <li>Gender</li>
+      <li>Genes</li>
+      <li>Chart Type</li>
+    </ul>
+
+    Choose 'Help' from navigation bar for detailed instructions
+  </div>
+
+{% endblock header%}
 
 {% block content %}
 
-<form action="{% url 'bd_app:index' %}" method="post">
-  {% csrf_token %}
+  <form action="{% url 'bd_app:index' %}" method="post" class="form">
+    {% csrf_token %}
 
-<div>
-  <h3>Patient Parameters</h3>
-  {{ pt_form.as_p }}
-</div>
-<div>
-  <h3>Clinical Parameters</h3>
-  {{ clin_form.as_p }}
-</div>
-<div>
-  <h3>Select Gene of Interest</h3>
-  {{ exp_form }}
-</div>
-<div>
-  <h3>Choose Data Representation</h3>
-  {{ chart_form }}
-</div>
+      {% buttons %}
+    
+    <p>
+      <button type="submit" class="btn btn-primary">submit</button>
+    </p>
 
-<p>
-  <button name="submit">submit</button>
-</p>
+  {% endbuttons %}
 
-</form>
+    <div class="col-md-4">
+      <h3>Patient Parameters</h3>
+      {% bootstrap_form pt_form %}
+    </div>
+
+    <div class="col-md-4">
+      <h3>Clinical Data Parameters</h3>
+      {% bootstrap_form clin_form %}
+    </div>
+
+    <div class="col-md-4">
+      <h3>Gene Expression Parameters</h3>
+      {% bootstrap_form exp_form %}
+      {% bootstrap_form chart_form %}
+    </div>
+
+ <!-- <div>
+    <h3>Patient Parameters</h3>
+    {{ pt_form }}
+  </div>
+
+  <div>
+    <h3>Clinical Parameters</h3>
+    {{ clin_form.as_p }}
+  </div>
+
+  <div>
+    <h3>Select Gene of Interest</h3>
+    {{ exp_form }}
+  </div>
+
+  <div>
+    <h3>Choose Data Representation</h3>
+    {{ chart_form }}
+  </div>
+  -->
+
+  </form>
 
 {% endblock content %}

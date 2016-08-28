@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     #custom apps
-    'bd_app'
+    'bd_app',
+
+    #third party apps
+    'bootstrap3',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +129,8 @@ STATICFILES_DIRS = [
     #os.path.join(BASE_DIR, "static"),
     os.path.join(BASE_DIR, "bd_app/static/bd_app/js"),
 ]
+
+#settings for django-bootstrap3
+BOOTSTRAP3 ={
+    'include_jquery': True,
+}

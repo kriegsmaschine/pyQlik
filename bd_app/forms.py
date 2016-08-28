@@ -12,7 +12,7 @@ class PatientForm(forms.Form):
 					)
 
 	cohort = forms.MultipleChoiceField(choices=[], required=True)
-	gender = forms.MultipleChoiceField(choices=[], required=False)
+	gender = forms.MultipleChoiceField(choices=[], required=True)
 
 	compare_ptForm = forms.ChoiceField(choices=RADIO_CHOICES,required=False,
 								       widget=forms.RadioSelect,label='Compare ',

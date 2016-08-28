@@ -17,8 +17,9 @@ function scatter(exp_data){
 	//alert(typeof(data.text.comparisons));
 
 	if(!data.text.comparisons){
-		document.getElementById("output_test").innerHTML = "".concat("Samples: ",
-								data.text.cohort_name_c1,": ",
+		document.getElementById("test").innerHTML = "Samples: ";
+		document.getElementById("output_test").innerHTML = "".
+								concat(data.text.cohort_name_c1,": ",
 								data.exp_data_c1.length);
 
 	 	if(data.plot == "scatter"){
