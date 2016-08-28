@@ -21,9 +21,6 @@ def index(request):
 		if (pt_form.is_valid() and clin_form.is_valid() and
 		   exp_form.is_valid() and chart_form.is_valid()):
 
-			#print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n\n")
-			#print(pt_form['compare_ptForm'].value())
-
 			#process the PatientForm
 			pt_key = processPatientForm(pt_form)
 			
@@ -32,10 +29,6 @@ def index(request):
 
 			#process the ExpDataForm
 			exp_data = processExpDataForm(exp_form, chart_form, pt_key2)
-
-			print('\n\n\nviews.py exp_data\n\n\n')
-			print(exp_data)
-			print('\n\n\n')
 
 			#return the processed forms
 			return render(request, 'bd_app/selection_output.html', {'exp_data':json.dumps(exp_data)})

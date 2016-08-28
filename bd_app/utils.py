@@ -217,10 +217,14 @@ def processClinDataForm(clin_form, pt_key):
 		else:
 			id_list_c1 = convertSingleListQuerySet(id_queryset_c1)
 
-		#may remove {'msival':msi_selection} from return dictionary, used for testing purposes
+		days_to_death_c1 = ClinData.objects.filter(id__in=id_list_c1).values_list('days_to_death',flat=True)
+		days_to_death_c1 = convertSingleListQuerySet(days_to_death_c1)
+
+
 		dict_clinData = {
 							'id_list':id_list_c1,
 						 	'cohort_name':pt_key['cohort_name'],
+						 	'days_to_death':days_to_death_c1,
 						}
 
 	#else pt_key['compCohorts'] > 1
@@ -276,7 +280,7 @@ def processClinDataForm(clin_form, pt_key):
 			                              days_to_death__lt=dtd_selection, path_stage__in=pStage_selection). \
 				                          values_list('id',flat=True)			
 
-
+		'''
 		if id_queryset_c1 == None:
 			#if filter returns no items in the QuerySet then search by pt_key from 
 			#the PatientForm()
@@ -288,15 +292,41 @@ def processClinDataForm(clin_form, pt_key):
 			id_list_c2.append(pt_key_c2)
 		else:
 			id_list_c2.append(convertSingleListQuerySet(id_queryset_c2))
+		'''
+
+		if id_queryset_c1 == None:
+			#if filter returns no items in the QuerySet then search by pt_key from 
+			#the PatientForm()
+			id_list_c1 = pt_key_c1
+		else:
+			id_list_c1 = convertSingleListQuerySet(id_queryset_c1)
+
+		if id_queryset_c2 == None:
+			id_list_c2 = pt_key_c2
+		else:
+			id_list_c2 = convertSingleListQuerySet(id_queryset_c2)
+
+		days_to_death_c1 = ClinData.objects.filter(id__in=id_list_c1).values_list('days_to_death',flat=True)
+		days_to_death_c1 = convertSingleListQuerySet(days_to_death_c1)
+
+		days_to_death_c2 = ClinData.objects.filter(id__in=id_list_c2).values_list('days_to_death',flat=True)
+		days_to_death_c2 = convertSingleListQuerySet(days_to_death_c2)
 
 
-		dict_clinData = {'id_list':(id_list_c1,id_list_c2),'compCohorts':pt_key['compCohorts'], \
-					     'cohort_name':pt_key['cohort_name'],'cohort_type':pt_key['cohort_type']}
-	
 
-	print('\n\n\ndict_clinData\n\n\n')
-	print(dict_clinData)
-	print('\n\n\n')
+		dict_clinData = {
+							'id_list':(id_list_c1,id_list_c2),
+							'compCohorts':pt_key['compCohorts'],
+					     	'cohort_name':pt_key['cohort_name'],
+					     	'cohort_type':pt_key['cohort_type'],
+					     	'days_to_death_c1':days_to_death_c1,
+					     	'days_to_death_c2':days_to_death_c2,
+					    }
+
+
+		print('\n\n\ndict_clinData\n\n\n')
+		print(dict_clinData)
+		print('\n\n\n')
 
 	return dict_clinData
 
@@ -312,7 +342,8 @@ def processExpDataForm(exp_form, chart_form, pt_key):
 	gene_selection = exp_form['genes'].value()[0]
 	plot_selection = chart_form['chartType'].value()
 
-	if len(pt_key) == 2:
+	#if no cohort Patient Parameters comparisons selected
+	if len(pt_key) == 3:
 		exp_data_c1 = ExpData.objects.filter(id__in=pt_key['id_list']). \
 		                                     values_list(gene_selection, flat=True)
 
@@ -322,6 +353,7 @@ def processExpDataForm(exp_form, chart_form, pt_key):
 						'exp_data_c1':exp_data_c1,
 						'exp_data_c2':None,
 						'plot':plot_selection,
+						'days_to_death_c1':pt_key['days_to_death'],
 						#'text' dictionary to counter JSON undefined issues
 						'text':{'gene':gene_selection,
 								'cohort_name_c1':pt_key['cohort_name'],
@@ -337,8 +369,12 @@ def processExpDataForm(exp_form, chart_form, pt_key):
 
 		exp_data_c1 = []
 		exp_data_c2 = []
-		pt_key_list_c1 = convertMultListQuerySet(pt_key['id_list'][0])
-		pt_key_list_c2 = convertMultListQuerySet(pt_key['id_list'][1])
+		pt_key_list_c1 = convertSingleListQuerySet(pt_key['id_list'][0])
+		pt_key_list_c2 = convertSingleListQuerySet(pt_key['id_list'][1])
+
+		#use below instead of converSingleListQuerySet() above if needed
+		#pt_key_list_c1 = convertMultListQuerySet(pt_key['id_list'][0])
+		#pt_key_list_c2 = convertMultListQuerySet(pt_key['id_list'][1])
 
 		exp_data_c1 = ExpData.objects.filter(id__in=pt_key_list_c1).values_list(gene_selection, flat=True)
 		exp_data_c2 = ExpData.objects.filter(id__in=pt_key_list_c2).values_list(gene_selection, flat=True)
@@ -351,6 +387,8 @@ def processExpDataForm(exp_form, chart_form, pt_key):
 					'exp_data_c1':exp_data_c1,
 				  	'exp_data_c2':exp_data_c2,
 				  	'plot':plot_selection, 
+				  	'days_to_death_c1':pt_key['days_to_death_c1'],
+				  	'days_to_death_c2':pt_key['days_to_death_c2'],
 				  	#'text' dictionary to counter JSON undefined issues
 				  	'text':{'gene':gene_selection,
 				  			'cohort_name_c1':pt_key['cohort_name'][0],
@@ -359,9 +397,6 @@ def processExpDataForm(exp_form, chart_form, pt_key):
 				  		   },
 			   }
 
-	print('\n\n\nexp_data\n\n\n')
-	print(exp_data)
-	print('\n\n\n')
 
 	return exp_data
 

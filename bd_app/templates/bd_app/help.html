@@ -17,18 +17,36 @@
 
         <h5>To view cohort comparison results:</h5>
           <ul>
-            Compare cancer cohorts:
-            <li></li>
-            <li></li>
-          </ul>
+            <li>select multiple cohorts</li>
+            <li>select multiple genders</li>
+            <li>select desired parameter in Compare Field to compare</li>
+            <ul>
+              <li>unselected Compare Field category is rolled into total counts</li>
+            </ul>
+          </ul></br>
 
         To make multiple selections per field use CTRL + select or SHIFT + select
       </ul>
 
     <p><h4>Clinical Data Parameters</h4></p>
       <ul>
+        <li>select desired MSI values, leave blank to select all</li>
+        <li>select desired Vital status, leave blank to select all</li>
+        <li>select Days To Death, leave blank to select all</li>
+          <ul>
+            <li>To choose values greater than or less than desired value</br>
+                choose a single value and select the appropriate radio button
+            </li>
+          </ul></br>
 
+          Values of -1 are place holders for Unknown values
       </ul>
+
+    <p><h4>Expression Data Parameters</h4></p>
+      <ul>
+        <li>Choose desired gene to analyze</li>
+        <li>Choose data representation</li>
+       </ul>
   </div>
 
 {% endblock header %}
