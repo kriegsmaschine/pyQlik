@@ -1,0 +1,28 @@
+{% extends "bd_app/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<!--
+<p>Cohort Patient Key(s): {{ ppt_form.pt_key }}</p>
+<p>Clinical Parameters: pt_key{{ pclin_form.id_list }}</p>
+<p>Expression Parameters: {{ pexp_form.exp_data }}</p>
+<p>Chart Type: {{ pexp_form.plot }}</p>
+-->
+
+<p>Number of patients:</p>
+<!-- {{ exp_data }} -->
+
+
+<div id="output_test" style="width: 50%; height: 500px;">
+  <script>
+  	scatter("{{ exp_data|escapejs }}")
+  </script>
+</div>
+
+<p>
+  <form action="{% url 'bd_app:index' %}">
+    <button name="button">return</button>
+  </form>
+</p>
+{% endblock content %}

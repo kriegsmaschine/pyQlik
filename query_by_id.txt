@@ -1,0 +1,28 @@
+//get objects' ids from a queryset
+
+p = ClinData.objects.filter(msi = 'msi-h', patient__gender = 'female')
+
+id_lst = p.values_list('patient__id', flat = True)
+
+__________________________________________________________________________
+
+//get Model's attributes
+
+p = model._meta.get_fields()    //use this to get all the attributes for a model
+
+p[x].name                       //use this to get just the attributes name, omitting its type
+			        //x = element of the list
+
+___________________________________________________________________________
+
+//return distinct column entries like sql
+
+set(model.objects.values_list('attribute', flat = True))
+
+___________________________________________________________________________
+
+//filter on list in queryset
+
+lst = ('filter1', 'filter2')
+
+model.objects.filter(attribute__in = lst)

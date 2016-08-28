@@ -1,0 +1,31 @@
+{% extends "bd_app/base.html" %}
+
+{% block content %}
+
+<form action="{% url 'bd_app:index' %}" method="post">
+  {% csrf_token %}
+
+<div>
+  <h3>Patient Parameters</h3>
+  {{ pt_form.as_p }}
+</div>
+<div>
+  <h3>Clinical Parameters</h3>
+  {{ clin_form.as_p }}
+</div>
+<div>
+  <h3>Select Gene of Interest</h3>
+  {{ exp_form }}
+</div>
+<div>
+  <h3>Choose Data Representation</h3>
+  {{ chart_form }}
+</div>
+
+<p>
+  <button name="submit">submit</button>
+</p>
+
+</form>
+
+{% endblock content %}
