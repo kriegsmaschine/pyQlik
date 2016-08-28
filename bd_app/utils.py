@@ -322,10 +322,12 @@ def processExpDataForm(exp_form, chart_form, pt_key):
 						'exp_data_c1':exp_data_c1,
 						'exp_data_c2':None,
 						'plot':plot_selection,
-						'gene':gene_selection,
-						'cohort_name_c1':pt_key['cohort_name'],
-						'cohort_name_c2':None,
-						'comparisons':False, #comparison flag if cohorts are being compared
+						#'text' dictionary to counter JSON undefined issues
+						'text':{'gene':gene_selection,
+								'cohort_name_c1':pt_key['cohort_name'],
+								'cohort_name_c2':None,
+								'comparisons':False, #comparison flag if cohorts are being compared
+							   },
 				   }
 
 		return exp_data
@@ -344,17 +346,6 @@ def processExpDataForm(exp_form, chart_form, pt_key):
 		exp_data_c1 = convertSingleListQuerySet(exp_data_c1)
 		exp_data_c2 = convertSingleListQuerySet(exp_data_c2)
 
-	'''
-	exp_data = {
-					'exp_data_c1':exp_data_c1,
-				  	'exp_data_c2':exp_data_c2,
-				  	'plot':plot_selection, 
-				  	'gene':gene_selection,
-				  	'cohort_name_c1':pt_key['cohort_name'][0],
-				  	'cohort_name_c2':pt_key['cohort_name'][1],
-				  	'comparisons':True, #comparison flag if cohorts are being compared
-				 }
-	'''
 
 	exp_data = {
 					'exp_data_c1':exp_data_c1,
@@ -364,7 +355,7 @@ def processExpDataForm(exp_form, chart_form, pt_key):
 				  	'text':{'gene':gene_selection,
 				  			'cohort_name_c1':pt_key['cohort_name'][0],
 				  			'cohort_name_c2':pt_key['cohort_name'][1],
-				  			'comparisons':True,
+				  			'comparisons':True, #comparison flag if cohorts are being compared
 				  		   },
 			   }
 
