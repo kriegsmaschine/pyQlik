@@ -27,7 +27,7 @@ function scatter(exp_data){
 			var layout = {
 				title: data.text.gene.toUpperCase(),
 				yaxis: {
-    				title: 'Raw Frequency',
+    				title: 'Raw Expression',
   				},
 			};
 		
@@ -127,7 +127,7 @@ function scatter(exp_data){
 			var layout = {
 				title: data.text.gene.toUpperCase(),
 				yaxis: {
-    				title: 'Raw Frequency',
+    				title: 'Raw Expression',
   				},
 			};
 		
@@ -253,7 +253,7 @@ function km_plot(data){
 	};
 
 	var layout = {
-  		title: data.text.gene.toUpperCase(),
+  		//title: data.text.gene.toUpperCase(),
   		
   		xaxis: {
     		title: 'Days to Death',
@@ -322,7 +322,7 @@ function km_plot(data){
 	};
 
 	var layout = {
-  		title: data.text.gene.toUpperCase(),
+  		//title: data.text.gene.toUpperCase(),
   		
   		xaxis: {
     		title: 'Days to Death',
