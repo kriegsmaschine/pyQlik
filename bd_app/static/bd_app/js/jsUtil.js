@@ -90,11 +90,21 @@ function scatter(exp_data){
 
 	}else{ //else if plotting cohort comparisons
 
-		document.getElementById("output_test").innerHTML = "".concat("Samples: ",
-								data.text.cohort_name_c1,": ",
-								data.exp_data_c1.length, " ",
-								data.text.cohort_name_c2,": ",
-								data.exp_data_c2.length);
+		//if statement to choose stats test to use for p-value
+		if(data.plot == "scatter" || data.plot == "boxplot"){
+			document.getElementById("output_test").innerHTML = "".concat("Samples: ",
+									data.text.cohort_name_c1,": ",
+									data.exp_data_c1.length, " ",
+									data.text.cohort_name_c2,": ",
+									data.exp_data_c2.length,"; p-value: ",
+									data.text.pval.toFixed(4));
+		}else{
+			document.getElementById("output_test").innerHTML = "".concat("Samples: ",
+									data.text.cohort_name_c1,": ",
+									data.exp_data_c1.length, " ",
+									data.text.cohort_name_c2,": ",
+									data.exp_data_c2.length);
+		}
 
 	 	if(data.plot == "scatter"){
 			//for loop to create x-axis vector

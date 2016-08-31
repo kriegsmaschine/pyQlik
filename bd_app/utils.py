@@ -1,5 +1,8 @@
 from bd_app.models import *
 
+#move this import to new helper function .py file
+from scipy.stats import ttest_ind
+
 
 
 '''
@@ -29,6 +32,13 @@ def convertSingleListQuerySet(id_queryset):
 		id_list.append(values)
 
 	return id_list
+
+'''
+function to perform two-way t-test on
+cohorts being compared
+'''
+def ttest(texp_data_c1, texp_data_c2):
+	return ttest_ind(texp_data_c1, texp_data_c2)
 
 
 '''
@@ -382,6 +392,7 @@ def processExpDataForm(exp_form, chart_form, pt_key):
 		exp_data_c1 = convertSingleListQuerySet(exp_data_c1)
 		exp_data_c2 = convertSingleListQuerySet(exp_data_c2)
 
+		pval        = ttest(exp_data_c1, exp_data_c2) #return 2-tuple (t-stat, p-value) 
 
 	exp_data = {
 					'exp_data_c1':exp_data_c1,
@@ -393,6 +404,7 @@ def processExpDataForm(exp_form, chart_form, pt_key):
 				  	'text':{'gene':gene_selection,
 				  			'cohort_name_c1':pt_key['cohort_name'][0],
 				  			'cohort_name_c2':pt_key['cohort_name'][1],
+				  			'pval':pval[1],
 				  			'comparisons':True, #comparison flag if cohorts are being compared
 				  		   },
 			   }
