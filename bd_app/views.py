@@ -1,11 +1,12 @@
-from django.shortcuts import render
-from .models import Patient, ClinData, ExpData
-from .forms  import *
-from .utils import *
-import json
+from django.shortcuts         import render
+from .models                  import Patient, ClinData, ExpData
+from .forms                   import *
+from .dbQuery                 import *
+                              import json
 
-from django.http import HttpResponseRedirect
+from django.http              import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+
 
 def index(request):
 	if request.method == 'POST':
@@ -13,10 +14,7 @@ def index(request):
 		clin_form  = ClinDataForm(request.POST)
 		exp_form   = ExpDataForm(request.POST)
 		chart_form = SelectDataChart(request.POST)
-		'''
-		if (pt_form.is_valid() and clin_form.is_valid() and 
-			exp_form.is_valid()):
-		'''
+		
 
 		if (pt_form.is_valid() and clin_form.is_valid() and
 		   exp_form.is_valid() and chart_form.is_valid()):

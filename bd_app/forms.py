@@ -66,10 +66,6 @@ class ClinDataForm(forms.Form):
 					ClinData.objects.all().values_list('days_to_death',
 							'days_to_death').distinct().order_by('days_to_death'))
 
-		#self.fields['days_to_last_followup'].choices = (
-		#			ClinData.objects.all().values_list('days_to_last_followup',
-		#					'days_to_last_followup').distinct().order_by('days_to_last_followup'))
-
 		self.fields['path_stage'].choices = (
 					ClinData.objects.all().values_list('path_stage',
 							'path_stage').distinct().order_by('path_stage'))
